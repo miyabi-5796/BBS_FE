@@ -5,13 +5,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the development server:
 
 ```bash
+# Wakeup virtual server.
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -19,6 +14,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## このアプリケーションについて
+
+Next.jsを使って掲示板の作成を行いました。
+フロントエンドとバックエンドはNext.jsで、データベースはMariaDBを使用。
+Next.jsとMariaDBとの間にPrismaを使用してやりとりを行っています。
+
+データベースはホストPC上にVM(Linux)を立ち上げてアクセスする方式にしています。
 
 ## Learn More
 
