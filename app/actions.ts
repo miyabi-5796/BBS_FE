@@ -1,16 +1,34 @@
 "use server";
 
-import fs from "fs/promises";
+import { prisma } from "./prisma";
 import { revalidatePath } from "next/cache";
 
-export async function getPosts() {
-  const data = await fs.readFile("posts.json", "utf-8");
-  return JSON.parse(data);
+export interface Post {
+  id: number;
+  name: string;
+  message: string;
+  createdAt: Date;
 }
 
-export async function addPost(newPost: any) {
-  const posts = await getPosts();
-  posts.unshift(newPost);
-  await fs.writeFile("posts.json", JSON.stringify(posts, null, 2));
+export async function getPosts() {
+  // データベースから投稿一覧を取得（作成日の降順）
+  const posts = await prisma.post.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return posts;
+}
+
+export async function addPost(data: { name: string; message: string }) {
+  // データベースに新しい投稿を保存
+  await prisma.post.create({
+    data: {
+      name: data.name,
+      message: data.message,
+    },
+  });
+  
+  // キャッシュを更新して画面を再表示
   revalidatePath("/");
 }

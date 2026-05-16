@@ -8,17 +8,16 @@ export default function PostForm() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.ChangeEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !message) return;
 
     setIsSubmitting(true);
 
+    // Prisma側で自動生成される項目（id, createdAt）は送らないように修正
     await addPost({
-      id: Date.now(),
       name,
       message,
-      createdAt: new Date().toLocaleString("ja-JP"),
     });
 
     setName("");
